@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>registration</title>
+  <link rel="stylesheet" href="registration.css" />
+
+  <!-- firebase start ****************************************-->
+  <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+  <!-- firebase end ******************************************-->
+
+  <script src="fb_setup.js"></script>
+  <script src="fb_io.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Registration</h1>
+
+    <div id="loginButton">
+      <button onclick="fb_login()">Login with Google</button>
+    </div>
+
+    <form id="userForm">
+      <label for="userName">Your Name:</label>
+      <input type="text" id="userName" name="userName" required />
+
+      <label for="userAge">Your Age:</label>
+      <input type="number" id="userAge" name="userAge" required />
+      <!-- add more fields here -->
+    </form>
+    <div id="formError"></div>
+
+    <div id="submitButton">
+      <h2>you must log in with Google before registering!!!</h2>
+    </div>
+    <div id="emailButton">
+      
+    </div>
+
+    <p id="statusMessage"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
