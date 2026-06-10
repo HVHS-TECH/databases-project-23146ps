@@ -14,6 +14,18 @@ function fb_login(){
     authenticationListener = firebase.auth().onAuthStateChanged(fb_handleLogin);
 }
 
+function checkLoggedIn() {
+    if (loggedIn = true) {
+        console.log("User has logged in")
+        GLOBAL_user = _user;
+        console.log(GLOBAL_user)
+    } else {
+        console.log("User is NOT logged in - Redirecting")
+        window.location.replace("/registration.html")
+
+    }
+}
+
 function fb_logout() {
     authenticationListener();
     firebase.auth().signOut();
@@ -43,6 +55,7 @@ function fb_popupLogin() {
     });
 }
 
-function fb_error(){
-    // Don't forget your error handling!
+function fb_error(error) {
+    console.log("there was an error");
+    console.log(error);
 }

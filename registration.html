@@ -25,17 +25,18 @@
     <h1>Registration</h1>
 
     <div id="loginButton">
-      <button onclick="fb_login()">Login with Google</button>
+      <button onclick="fb_authenticate()">Login with Google</button>
     </div>
 
     <form id="userForm">
-      <label for="userName">Your Name:</label>
+      <label for="userName">Plese enter a nickname:</label>
       <input type="text" id="userName" name="userName" required />
 
-      <label for="userAge">Your Age:</label>
+      <label for="userAge">Your age:</label>
       <input type="number" id="userAge" name="userAge" required />
       <!-- add more fields here -->
     </form>
+    <p>note: you cannot change your nickname or age after registering</p>
     <div id="formError"></div>
 
     <div id="submitButton">
@@ -48,7 +49,7 @@
     <p id="statusMessage"></p>
   </div>
 
-  <script src="script.js"></script>
+  <script src="fb_script.js"></script>
 </body>
 
 </html>
