@@ -26,6 +26,10 @@ var loggedIn = false
 //
 /**************************************************************/
 
+const HTML_HOME_LOGIN = document.getElementById("homeLoginRedirect");
+
+const HTML_HOME_MENU = document.getElementById("homeMenu");
+
 /**************************************************************/
 //
 // registration.html functions
@@ -41,6 +45,7 @@ async function showLoggedIn() {
 
     let userName = GLOBAL_user.displayName
     HTML_LOGIN.innerHTML = "<h3> Logged in as " + userName + " </h3> <button onclick='fb_logout()'>logout</button>"
+    console.log(GLOBAL_user)
     /*
     let userID = GLOBAL_user.uid;
     let userImage = GLOBAL_user.photoURL;
@@ -67,7 +72,7 @@ function checkUID(snapshot) {
     //this checks if the users uid is already in the database, if it is it redirects back to index.html, otherwise it creates a form
     var log = snapshot.val();
     console.log(log)
-    if(log == null) {
+    if (log == null) {
         HTML_FORM.innerHTML = `<form id="userForm">
         <label for="userName">Plese enter a nickname:</label>
         <input type="text" id="userName" name="userName" required />
@@ -78,7 +83,6 @@ function checkUID(snapshot) {
         <div id="formError">
         </div><button onclick="writeForm()">Submit</button>`
     } else {
-        window.location.replace("/index.html")
         loggedIn = true
     }
 }
@@ -86,6 +90,8 @@ function checkUID(snapshot) {
 function showLoggedOut() {
     //logged out, show login button
     HTML_LOGIN.innerHTML = '<button onclick="fb_login()">Login with Google</button>'
+    HTML_FORM.innerHTML = ``
+    HTML_HOME_MENU.innerHTML = ``
     console.log("logged out!")
 }
 
@@ -116,7 +122,6 @@ async function writeForm() {
 
         });
         loggedIn = true
-        window.location.replace("/index.html")
     };
 };
 
@@ -125,6 +130,29 @@ async function writeForm() {
 // index.html
 //
 /**************************************************************/
+
+function ifLoggedIn() {
+    if (GLOBAL_user != null) {
+        HTML_LOGIN.innerHTML = ''
+        HTML_HOME_MENU.innerHTML = `
+        <div class="container">
+                <div class="column">
+                    <button onclick="location.href='game1_home.html'">game1</button>
+                    <h3>High scores:</h3>
+                    <img src="noimg.jpg">
+                </div>
+                <div class="column">
+                    <button onclick="location.href='game2.html'">game2</button>
+                    <h3>High scores:</h3>
+                    <img src="noimg.jpg">
+                </div>`
+        console.log(GLOBAL_user)
+    } else {
+        HTML_LOGIN.innerHTML = `<button onclick="fb_authenticate()">Login with Google</button>`
+        HTML_HOME_MENU.innerHTML = ``
+    }
+}
+
 
 // firebase error 
 function fb_error(error) {

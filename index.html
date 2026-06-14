@@ -2,47 +2,51 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Super Epik Cool Website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Super Epik Cool Website</title>
 
-  <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
 
-  <!-- firebase start ****************************************-->
-  <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
-  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
-  <!-- firebase end ******************************************-->
-   
-  <script src="fb_setup.js"></script>
-  <script src="fb_io.js"></script>
+    <!-- firebase start ****************************************-->
+    <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+    <!-- firebase end ******************************************-->
+
+    <script src="fb_setup.js"></script>
+    <script src="fb_io.js"></script>
 
 </head>
 
-<body onload="checkLoggedIn()">
+<body onload="ifLoggedIn()">
     <header>
-        <h1>Game menu</h1> 
-        <div id="homeLoginRedirect">
-            <button onclick="location.href='registration.html'">register or log in to log score</button>
+        <h1>Game menu</h1>
+        <div id="loginButton">
+            <button onclick="fb_authenticate()">Login with Google</button>
         </div>
-    
-    <div class="container">
-        <div class="column">
-            <button onclick="location.href='game1_home.html'">game1</button>
-            <h3>High scores:</h3>
-            <img src="noimg.jpg">
+        <div id="signUpForm"></div>
+        <p id="statusMessage"></p>
         </div>
-        <div class="column">
-            <button onclick="location.href='game2.html'">game2</button>
-            <h3>High scores:</h3>
-            <img src="noimg.jpg">
+        <div id="homeMenu">
+            <div class="container">
+                <div class="column">
+                    <button onclick="location.href='game1_home.html'">game1</button>
+                    <h3>High scores:</h3>
+                    <img src="noimg.jpg">
+                </div>
+                <div class="column">
+                    <button onclick="location.href='game2.html'">game2</button>
+                    <h3>High scores:</h3>
+                    <img src="noimg.jpg">
+                </div>
+            </div>
         </div>
-    </div>
 
-    <script src="fb_script.js"></script>
+        <script src="fb_script.js"></script>
 
 </body>
 
