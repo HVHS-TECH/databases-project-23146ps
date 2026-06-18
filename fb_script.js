@@ -74,7 +74,7 @@ function checkUID(snapshot) {
     console.log(log)
     if (log == null) {
         HTML_FORM.innerHTML = `<form id="userForm">
-        <label for="userName">Plese enter a nickname:</label>
+        <label for="userName">Please enter a nickname:</label>
         <input type="text" id="userName" name="userName" required />
         <label for="userAge">Your age:</label>
         <input type="number" id="userAge" name="userAge" required />
@@ -83,7 +83,7 @@ function checkUID(snapshot) {
         <div id="formError">
         </div><button onclick="writeForm()">Submit</button>`
     } else {
-        loggedIn = true
+        window.location.replace("/index.html")
     }
 }
 
@@ -121,7 +121,7 @@ async function writeForm() {
             age: formAge
 
         });
-        loggedIn = true
+        window.location.replace("/index.html")
     };
 };
 
@@ -131,8 +131,20 @@ async function writeForm() {
 //
 /**************************************************************/
 
-function ifLoggedIn() {
-    if (GLOBAL_user != null) {
+
+// FIX UID CHECKING 
+async function readUIDHome() {
+    //reads if the user uid is in the database
+    console.log("reading data");
+    await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInHome, fb_error);
+    console.log('readUID() complete');
+}
+
+function ifLoggedInHome(snapshot) {
+    var log = snapshot.val();
+    let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
+    console.log(GLOBAL_user.uid)
+    if (GLOBAL_user.uid = log) {
         HTML_LOGIN.innerHTML = ''
         HTML_HOME_MENU.innerHTML = `
         <div class="container">
@@ -148,10 +160,22 @@ function ifLoggedIn() {
                 </div>`
         console.log(GLOBAL_user)
     } else {
-        HTML_LOGIN.innerHTML = `<button onclick="fb_authenticate()">Login with Google</button>`
+        HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up</button>`
         HTML_HOME_MENU.innerHTML = ``
     }
 }
+
+/**************************************************************/
+// 
+// Game1
+//
+/**************************************************************/
+
+/**************************************************************/
+// 
+// game2
+//
+/**************************************************************/
 
 
 // firebase error 

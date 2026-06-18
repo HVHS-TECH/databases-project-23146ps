@@ -22,17 +22,22 @@
 
 </head>
 
-<body onload="ifLoggedIn()">
+<body onload="readUIDHome()">
     <header>
         <h1>Game menu</h1>
         <div id="loginButton">
-            <button onclick="fb_authenticate()">Login with Google</button>
+            <button onclick="location.href='registration.html'">Login or sign up</button>
         </div>
-        <div id="signUpForm"></div>
-        <p id="statusMessage"></p>
         </div>
         <div id="homeMenu">
-            <div class="container">
+        </div>
+
+        <script src="fb_script.js"></script>
+
+</body>
+
+<!--
+<div class="container">
                 <div class="column">
                     <button onclick="location.href='game1_home.html'">game1</button>
                     <h3>High scores:</h3>
@@ -44,10 +49,6 @@
                     <img src="noimg.jpg">
                 </div>
             </div>
-        </div>
-
-        <script src="fb_script.js"></script>
-
-</body>
+-->
 
 </html>

@@ -26,6 +26,7 @@ function fb_handleLogin(_user) {
         console.log("User has logged in")
         GLOBAL_user = _user;
         console.log(GLOBAL_user)
+        window.sessionStorage.setItem('GLOBAL_user', JSON.stringify(GLOBAL_user));
         showLoggedIn();
     } else {
         console.log("User is NOT logged in - Starting popup process")
