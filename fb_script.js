@@ -5,8 +5,6 @@ console.log("fb_script.js")
 // registration.html consts
 //
 /**************************************************************/
-const HTML_LOGIN = document.getElementById("loginButton");
-
 const HTML_NAME = document.getElementById("name");
 const HTML_AGE = document.getElementById("favoriteFruit");
 
@@ -25,6 +23,9 @@ var loggedIn = false
 // index.html consts
 //
 /**************************************************************/
+const HTML_LOGIN = document.getElementById("loginButton");
+
+const HTML_LOADING = document.getElementById("loading")
 
 const HTML_HOME_LOGIN = document.getElementById("homeLoginRedirect");
 
@@ -135,16 +136,23 @@ async function writeForm() {
 // FIX UID CHECKING 
 async function readUIDHome() {
     //reads if the user uid is in the database
-    console.log("reading data");
-    await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInHome, fb_error);
-    console.log('readUID() complete');
+    let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
+    if(GLOBAL_user == null) {
+        HTML_LOADING.innerHTML = ''
+        HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up</button>`
+        HTML_HOME_MENU.innerHTML = ``
+    } else {
+        console.log("reading data");
+        await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInHome, fb_error);
+        console.log('readUID() complete');
+    }
 }
 
 function ifLoggedInHome(snapshot) {
-    var log = snapshot.val();
     let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
-    console.log(GLOBAL_user.uid)
+    var log = snapshot.val();
     if (GLOBAL_user.uid = log) {
+        HTML_LOADING.innerHTML = ''
         HTML_LOGIN.innerHTML = ''
         HTML_HOME_MENU.innerHTML = `
         <div class="container">
@@ -160,6 +168,7 @@ function ifLoggedInHome(snapshot) {
                 </div>`
         console.log(GLOBAL_user)
     } else {
+        HTML_LOADING.innerHTML = ''
         HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up</button>`
         HTML_HOME_MENU.innerHTML = ``
     }
