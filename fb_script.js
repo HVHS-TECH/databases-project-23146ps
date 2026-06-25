@@ -93,7 +93,7 @@ function checkUID(snapshot) {
         <div id="formError">
         </div><button onclick="writeForm()">Submit</button>`
     } else {
-        window.location.replace("/index.html")
+        window.location.replace("index.html")
     }
 }
 
