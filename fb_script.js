@@ -130,7 +130,7 @@ async function writeForm() {
             age: formAge
 
         });
-        window.location.replace("index.html")
+        window.location.replace("index.html");
     };
 };
 
@@ -143,8 +143,8 @@ async function writeForm() {
 // index.html
 //
 /**************************************************************/
- 
 async function readUIDHome() {
+    console.log("check");
     //reads if the user uid is in the database
     let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
     if(GLOBAL_user == null) {
