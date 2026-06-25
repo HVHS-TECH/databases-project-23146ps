@@ -18,6 +18,7 @@ function fb_logout() {
     authenticationListener();
     firebase.auth().signOut();
     console.log("logged out");
+    window.sessionStorage.removeItem('GLOBAL_user')
     showLoggedOut();
 }
 
