@@ -102,7 +102,7 @@ function targetLoad() {
 	}
 }
 
-function playerDies() {
+async function playerDies() {
 	background('red');
 	text("you died! you cleared " + roomScore + " rooms! press 'r' or reload the page to restart!!", width / 2, height / 2)
 	targetGroup.visible = false
@@ -111,7 +111,21 @@ function playerDies() {
 	bulletSprite.visible = false
 	wallGroup.visible = false
 
+	GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
+	await firebase.database().ref('/userData/' + GLOBAL_user.uid + '/gameName').once('value', readGameName, fb_error);
+
+	await firebase.database().ref("/game1/").update({
+
+		gameName: roomScore
+
+	});
+
 	noLoop();
+}
+
+function readGameName(snapshot) {
+	gameName = snapshot.val();
+	console.log(gameName)
 }
 
 bulletAngle = 0
@@ -290,6 +304,12 @@ function draw() {
 
 		text("oops! you need to destroy all the targets before progressing!", width / 2, height / 2);
 	}
+}
+
+// firebase error 
+function fb_error(error) {
+	console.log("there was an error");
+	console.log(error);
 }
 /*******************************************************/
 //  END OF APP
