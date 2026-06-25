@@ -1,4 +1,5 @@
 console.log("fb_script.js")
+console.log("check");
 
 /**************************************************************/
 //
@@ -144,7 +145,6 @@ async function writeForm() {
 //
 /**************************************************************/
 async function readUIDHome() {
-    console.log("check");
     //reads if the user uid is in the database
     let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
     if(GLOBAL_user == null) {
