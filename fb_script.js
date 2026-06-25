@@ -18,6 +18,10 @@ const HTML_FORM = document.getElementById("signUpForm");
 
 var loggedIn = false
 
+
+
+
+
 /**************************************************************/
 //
 // index.html consts
@@ -30,6 +34,10 @@ const HTML_LOADING = document.getElementById("loading")
 const HTML_HOME_LOGIN = document.getElementById("homeLoginRedirect");
 
 const HTML_HOME_MENU = document.getElementById("homeMenu");
+
+
+
+
 
 /**************************************************************/
 //
@@ -122,18 +130,20 @@ async function writeForm() {
             age: formAge
 
         });
-        window.location.replace("/index.html")
+        window.location.replace("index.html")
     };
 };
+
+
+
+
 
 /**************************************************************/
 // 
 // index.html
 //
 /**************************************************************/
-
-
-// FIX UID CHECKING 
+ 
 async function readUIDHome() {
     //reads if the user uid is in the database
     let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
@@ -174,6 +184,10 @@ function ifLoggedInHome(snapshot) {
     }
 }
 
+
+
+
+
 /**************************************************************/
 // 
 // Game1
@@ -185,6 +199,18 @@ function ifLoggedInHome(snapshot) {
 // game2
 //
 /**************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // firebase error 
