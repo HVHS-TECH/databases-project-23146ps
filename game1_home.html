@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>P5.play</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="assets/images/dtec_favicon.PNG">
+
+
+  <!-- Firebase setup ***************************************-->
+  <!-- Firebase App (core Firebase SDK) is always required & must be listed 1st -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
+
+  <script src="fb_setup.js"></script>
+  <script src="fb_io.js"></script>
+
   
   <!-- stylesheets *******************************************-->
   <link rel="stylesheet" href="style.css">
- 
+
   <!-- P5.js & P5.play ***************************************-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js" integrity="sha512-bzpp8klYroR6PFgL3RJ+VkvY5hJna7Zd38OA56peUDHSNQpSiN9lDQVnMYtcw7hoAVhbR6mAOdH+ymzg1o+G0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js" integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.js"
+    integrity="sha512-bzpp8klYroR6PFgL3RJ+VkvY5hJna7Zd38OA56peUDHSNQpSiN9lDQVnMYtcw7hoAVhbR6mAOdH+ymzg1o+G0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/addons/p5.sound.js"
+    integrity="sha512-TU9AWtV5uUZPX8dbBAH8NQF1tSdigPRRT82vllAQ1Ke28puiqLA6ZVKxtUGlgrH6yWFnkKy+sE6luNEGH9ar0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://p5play.org/v3/planck.min.js"></script>
   <script src="https://p5play.org/v3/p5play.js"></script>
-  
+
   <!-- JQUERY ************************************************-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -22,21 +40,35 @@
 <!--*************************************************************
   BODY
 **************************************************************-->
+
 <body>
   <header>
-    <h1>dungeon cleaner!!</h1>
-    
-    <div class="container">
+  <div id="loading">
+  <h1>LOADING</h1>
+  </div>
+
+  <div id="loginButton">
+  </div>
+
+    <div id="game1HomeMenu">
+      <h1>dungeon cleaner!!</h1>
+
+      <div class="container">
         <div class="column">
-            <button onclick="location.href='game1_play.html'">start game</button>
+          <button onclick="location.href='game1_play.html'">start game</button>
         </div>
+      </div>
+
+      <h2>how to play:</h2>
+      <h3>WASD for movement,</h3>
+      <h3>Aim with mouse cursor,</h3>
+      <h3>Spacebar to shoot bullet,</h3>
+      <h3>R or reload page to restart,</h3>
+      <h3>Kill all the enemies then go through the orange door to get to the next room!</h3>
     </div>
 
-    <h2>how to play:</h2>
-    <h3>WASD for movement,</h3>
-    <h3>Aim with mouse cursor,</h3>
-    <h3>Spacebar to shoot bullet,</h3>
-    <h3>R or reload page to restart,</h3>
-    <h3>Kill all the enemies then go through the orange door to get to the next room!</h3>
+    <script src="fb_script.js"></script>
+
 </body>
+
 </html>

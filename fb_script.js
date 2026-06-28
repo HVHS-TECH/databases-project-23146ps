@@ -38,6 +38,22 @@ const HTML_HOME_MENU = document.getElementById("homeMenu");
 
 
 
+/**************************************************************/
+//
+// game1 consts
+//
+/**************************************************************/
+const HTML_GAME_1_SCRIPT = document.getElementById("game1Script");
+
+
+
+/**************************************************************/
+//
+// game2.html consts
+//
+/**************************************************************/
+const HTML_GAME_2_SCRIPT = document.getElementById("game2Script");
+
 
 /**************************************************************/
 //
@@ -193,13 +209,66 @@ function ifLoggedInHome(snapshot) {
 //
 /**************************************************************/
 
+async function readUIDGame1() {
+    //reads if the user uid is in the database
+    let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
+    if(GLOBAL_user == null) {
+        HTML_LOADING.innerHTML = ''
+        HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up to play game</button>`
+    } else {
+        console.log("reading data");
+        await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame1, fb_error);
+        console.log('readUID() complete');
+    }
+}
+
+function ifLoggedInGame1(snapshot) {
+    let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
+    var log = snapshot.val();
+    if (GLOBAL_user.uid = log) {
+        HTML_LOADING.innerHTML = ''
+        HTML_LOGIN.innerHTML = ''
+        HTML_GAME_1_SCRIPT.innerHTML = `<script src="game1.js"></script>`
+        console.log(GLOBAL_user)
+    } else {
+        HTML_LOADING.innerHTML = ''
+        HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up to play game</button>`
+    }
+}
+
+
 /**************************************************************/
 // 
 // game2
 //
 /**************************************************************/
 
+async function readUIDGame2() {
+    //reads if the user uid is in the database
+    let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
+    if(GLOBAL_user == null) {
+        HTML_LOADING.innerHTML = ''
+        HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up to play game</button>`
+    } else {
+        console.log("reading data");
+        await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame2, fb_error);
+        console.log('readUID() complete');
+    }
+}
 
+function ifLoggedInGame2(snapshot) {
+    let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
+    var log = snapshot.val();
+    if (GLOBAL_user.uid = log) {
+        HTML_LOADING.innerHTML = ''
+        HTML_LOGIN.innerHTML = ''
+        HTML_GAME_1_SCRIPT.innerHTML = `<script src="game2.js"></script>`
+        console.log(GLOBAL_user)
+    } else {
+        HTML_LOADING.innerHTML = ''
+        HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up to play game</button>`
+    }
+}
 
 
 
