@@ -16,8 +16,6 @@ const HTML_TEXT_OUTPUT = document.getElementById("statusMessage");
 
 const HTML_FORM = document.getElementById("signUpForm");
 
-var loggedIn = false
-
 
 
 
@@ -32,6 +30,10 @@ const HTML_LOGIN = document.getElementById("loginButton");
 const HTML_LOADING = document.getElementById("loading")
 
 const HTML_HOME_LOGIN = document.getElementById("homeLoginRedirect");
+
+const HTML_SHOW_USER = document.getElementById("loggedInAs");
+
+const HTML_HOME_LOGOUT = document.getElementById("logoutButton");
 
 const HTML_HOME_MENU = document.getElementById("homeMenu");
 
@@ -178,12 +180,17 @@ async function readUIDHome() {
     let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
     if (GLOBAL_user == null) {
         HTML_LOADING.innerHTML = ''
+
+        HTML_SHOW_USER.innerHTML = ''
+
         HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up</button>`
-        HTML_HOME_MENU.innerHTML = ``
+
+        HTML_HOME_MENU.innerHTML = ''
+
+        HTML_HOME_LOGOUT.innerHTML = ''
     } else {
-        console.log("reading data");
         await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInHome, fb_error);
-        console.log('readUID() complete');
+        await firebase.database().ref('/userData/' + GLOBAL_user.uid + '/gameName').once('value', showUserHome, fb_error);
     }
 }
 
@@ -192,46 +199,73 @@ async function ifLoggedInHome(snapshot) {
     var log = snapshot.val();
     if (GLOBAL_user.uid = log) {
         HTML_LOADING.innerHTML = ''
+
         HTML_LOGIN.innerHTML = ''
+
+        HTML_HOME_LOGOUT.innerHTML = `<button onclick="logoutHome()">Log out</button>`
+
         HTML_GAME_1_BUTTON.innerHTML = `
         <button onclick="location.href='game1_home.html'">Dungeon Cleaner</button>
         <h3>HIGH SCORES:</h3>`
+
         HTML_GAME_2_BUTTON.innerHTML = `
         <button onclick="location.href='game2.html'">GeoDash</button>
         <h3>HIGH SCORES:</h3>`
+
         console.log(GLOBAL_user)
         await readGame1Score()
     } else {
         HTML_LOADING.innerHTML = ''
+
+        HTML_SHOW_USER.innerHTML = ''
+
         HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up</button>`
+
         HTML_HOME_MENU.innerHTML = ``
+
+        HTML_HOME_LOGOUT.innerHTML = ''
     }
 }
 
+function showUserHome(snapshot) {
+    fbGameName = snapshot.val();
+    HTML_SHOW_USER.innerHTML = '<h2>logged in as: ' + fbGameName + '</h2>'
+}
+
+function showLoggedOutHome() {
+    //logged out, show login button
+    HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up</button>`
+    HTML_LOADING.innerHTML = ``
+    HTML_SHOW_USER.innerHTML = ''
+    HTML_HOME_MENU.innerHTML = ``
+    HTML_HOME_LOGOUT.innerHTML = ''
+    console.log("logged out!")
+}
+
 async function readGame1Score() {
-  console.log("reading data");
-  await firebase.database().ref('/game1').orderByValue().once('value', displayGame1Scores, fb_error);
-  console.log('readData() complete');
+    console.log("reading data");
+    await firebase.database().ref('/game1').orderByValue().once('value', displayGame1Scores, fb_error);
+    console.log('readData() complete');
 }
 
-function displayGame1Scores(snapshot){
-  console.log("fb_readUserScores");
-  snapshot.forEach(showGame1Score)
-  /*
-  let userData = snapshot.val();
-  let messages = Object.keys(userData)
-  for(i=0; i < messages.length; i++) {
-    let key =  messages[i];
-    console.log(i+ " is for " +key+ "." +userData[key])
-  
-  }
-  */
-  console.log("fb_readUserData complete")
+function displayGame1Scores(snapshot) {
+    console.log("fb_readUserScores");
+    snapshot.forEach(showGame1Score)
+    /*
+    let userData = snapshot.val();
+    let messages = Object.keys(userData)
+    for(i=0; i < messages.length; i++) {
+      let key =  messages[i];
+      console.log(i+ " is for " +key+ "." +userData[key])
+    
+    }
+    */
+    console.log("fb_readUserData complete")
 }
 
-function showGame1Score(child){
-  console.log(child.key+" got "+child.val()+" points");
-  HTML_GAME_1_OUTPUT.innerHTML += "<p>" + child.key + " got " +child.val() + " points </p>"
+function showGame1Score(child) {
+    console.log(child.key + " got " + child.val() + " points");
+    HTML_GAME_1_OUTPUT.innerHTML += "<p>" + child.key + " got " + child.val() + " points </p>"
 }
 
 

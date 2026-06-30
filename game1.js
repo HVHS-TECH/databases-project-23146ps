@@ -128,6 +128,22 @@ async function playerDies() {
 function readGameName(snapshot) {
 	gameName = snapshot.val();
 	console.log(gameName)
+	readScore()
+}
+
+async function readScore() {
+	await firebase.database().ref('/game1/' + gameName).once('value', writeScore, fb_error);
+}
+
+async function writeScore(snapshot) {
+	let savedScore = snapshot.val();
+	if (savedScore < roomScore) {
+		await firebase.database().ref("/game1/").update({
+
+			[gameName]: roomScore
+
+		});
+	}
 }
 
 bulletAngle = 0

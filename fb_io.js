@@ -22,6 +22,13 @@ function fb_logout() {
     showLoggedOut();
 }
 
+function logoutHome() {
+    firebase.auth().signOut();
+    console.log("logged out");
+    window.sessionStorage.removeItem('GLOBAL_user')
+    showLoggedOutHome();
+}
+
 function fb_handleLogin(_user) {
     if (_user) {
         console.log("User has logged in")
