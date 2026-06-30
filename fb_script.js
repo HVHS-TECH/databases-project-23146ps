@@ -214,6 +214,7 @@ async function ifLoggedInHome(snapshot) {
 
         console.log(GLOBAL_user)
         await readGame1Score()
+        await readGame2Score()
     } else {
         HTML_LOADING.innerHTML = ''
 
@@ -242,6 +243,8 @@ function showLoggedOutHome() {
     console.log("logged out!")
 }
 
+
+//game 1 score
 async function readGame1Score() {
     console.log("reading data");
     await firebase.database().ref('/game1').orderByValue().once('value', displayGame1Scores, fb_error);
@@ -269,6 +272,31 @@ function showGame1Score(child) {
 }
 
 
+
+//game 2 score
+async function readGame2Score() {
+    await firebase.database().ref('/game2').orderByValue().once('value', displayGame2Scores, fb_error);
+}
+
+function displayGame2Scores(snapshot) {
+    console.log("fb_readUserScores");
+    snapshot.forEach(showGame2Score)
+    /*
+    let userData = snapshot.val();
+    let messages = Object.keys(userData)
+    for(i=0; i < messages.length; i++) {
+      let key =  messages[i];
+      console.log(i+ " is for " +key+ "." +userData[key])
+    
+    }
+    */
+    console.log("fb_readUserData complete")
+}
+
+function showGame2Score(child) {
+    console.log(child.key + " got " + child.val() + " points");
+    HTML_GAME_2_OUTPUT.innerHTML += "<p>" + child.key + " got " + child.val() + " points </p>"
+}
 
 /**************************************************************/
 // 
