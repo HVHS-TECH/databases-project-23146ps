@@ -111,16 +111,18 @@ async function playerDies() {
 	bulletSprite.visible = false
 	wallGroup.visible = false
 
+	noLoop();
+
 	GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
 	await firebase.database().ref('/userData/' + GLOBAL_user.uid + '/gameName').once('value', readGameName, fb_error);
 
+	/*
 	await firebase.database().ref("/game1/").update({
 
-		gameName: roomScore
+		[gameName]: roomScore
 
 	});
-
-	noLoop();
+	*/
 }
 
 function readGameName(snapshot) {

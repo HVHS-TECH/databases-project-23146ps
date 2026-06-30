@@ -35,6 +35,13 @@ const HTML_HOME_LOGIN = document.getElementById("homeLoginRedirect");
 
 const HTML_HOME_MENU = document.getElementById("homeMenu");
 
+const HTML_GAME_1_BUTTON = document.getElementById("game1Button");
+
+const HTML_GAME_2_BUTTON = document.getElementById("game2Button");
+
+const HTML_GAME_1_OUTPUT = document.getElementById("game1Scores");
+
+const HTML_GAME_2_OUTPUT = document.getElementById("game2Scores");
 
 
 
@@ -133,22 +140,27 @@ async function writeForm() {
         console.log("error")
         HTML_FORM_ERROR.innerHTML = "cannot submit, form incomplete"
     } else {
-        let googleName = GLOBAL_user.displayName;
-        let email = GLOBAL_user.email;
-        let userID = GLOBAL_user.uid;
-        let userImage = GLOBAL_user.photoURL;
-        console.log(userID);
+        if (formAge < 16) {
+            console.log("user is underage")
+            HTML_FORM_ERROR.innerHTML = "cannot submit, invalid age"
+        } else {
+            let googleName = GLOBAL_user.displayName;
+            let email = GLOBAL_user.email;
+            let userID = GLOBAL_user.uid;
+            let userImage = GLOBAL_user.photoURL;
+            console.log(userID);
 
-        await firebase.database().ref("userData/" + userID).set({
+            await firebase.database().ref("userData/" + userID).set({
 
-            displayName: googleName,
-            userEmail: email,
-            photoURL: userImage,
-            gameName: formName,
-            age: formAge
+                displayName: googleName,
+                userEmail: email,
+                photoURL: userImage,
+                gameName: formName,
+                age: formAge
 
-        });
-        window.location.replace("index.html");
+            });
+            window.location.replace("index.html");
+        };
     };
 };
 
@@ -175,25 +187,20 @@ async function readUIDHome() {
     }
 }
 
-function ifLoggedInHome(snapshot) {
+async function ifLoggedInHome(snapshot) {
     let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
     var log = snapshot.val();
     if (GLOBAL_user.uid = log) {
         HTML_LOADING.innerHTML = ''
         HTML_LOGIN.innerHTML = ''
-        HTML_HOME_MENU.innerHTML = `
-        <div class="container">
-                <div class="column">
-                    <button onclick="location.href='game1_home.html'">game1</button>
-                    <h3>High scores:</h3>
-                    <img src="noimg.jpg">
-                </div>
-                <div class="column">
-                    <button onclick="location.href='game2.html'">game2</button>
-                    <h3>High scores:</h3>
-                    <img src="noimg.jpg">
-                </div>`
+        HTML_GAME_1_BUTTON.innerHTML = `
+        <button onclick="location.href='game1_home.html'">Dungeon Cleaner</button>
+        <h3>HIGH SCORES:</h3>`
+        HTML_GAME_2_BUTTON.innerHTML = `
+        <button onclick="location.href='game2.html'">GeoDash</button>
+        <h3>HIGH SCORES:</h3>`
         console.log(GLOBAL_user)
+        await readGame1Score()
     } else {
         HTML_LOADING.innerHTML = ''
         HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up</button>`
@@ -201,7 +208,31 @@ function ifLoggedInHome(snapshot) {
     }
 }
 
+async function readGame1Score() {
+  console.log("reading data");
+  await firebase.database().ref('/game1').orderByValue().once('value', displayGame1Scores, fb_error);
+  console.log('readData() complete');
+}
 
+function displayGame1Scores(snapshot){
+  console.log("fb_readUserScores");
+  snapshot.forEach(showGame1Score)
+  /*
+  let userData = snapshot.val();
+  let messages = Object.keys(userData)
+  for(i=0; i < messages.length; i++) {
+    let key =  messages[i];
+    console.log(i+ " is for " +key+ "." +userData[key])
+  
+  }
+  */
+  console.log("fb_readUserData complete")
+}
+
+function showGame1Score(child){
+  console.log(child.key+" got "+child.val()+" points");
+  HTML_GAME_1_OUTPUT.innerHTML += "<p>" + child.key + " got " +child.val() + " points </p>"
+}
 
 
 
