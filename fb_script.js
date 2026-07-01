@@ -115,7 +115,7 @@ function checkUID(snapshot) {
         <label for="userAge">Your age:</label>
         <input type="number" id="userAge" name="userAge" required />
         </form>
-        <p>note: you cannot change your nickname or age after registering</p>
+        <p>note: you cannot change your nickname or age after registering, you must be 16 or over to submit.</p>
         <div id="formError">
         </div><button onclick="writeForm()">Submit</button>`
     } else {
@@ -230,7 +230,7 @@ async function ifLoggedInHome(snapshot) {
 
 function showUserHome(snapshot) {
     fbGameName = snapshot.val();
-    HTML_SHOW_USER.innerHTML = '<h2>logged in as: ' + fbGameName + '</h2>'
+    HTML_SHOW_USER.innerHTML = '<h2>logged in as: ' + fbGameName + '</h2> <img src="' + GLOBAL_user.photoURL + '" alt="profilepicture">'
 }
 
 function showLoggedOutHome() {
