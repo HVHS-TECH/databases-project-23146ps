@@ -198,7 +198,7 @@ async function ifLoggedInHome(snapshot) {
     let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
     var log = snapshot.val();
     if (GLOBAL_user.uid = log) {
-        HTML_LOADING.innerHTML = ''
+        HTML_LOADING.innerHTML = '<h2>games & scores</h2>'
 
         HTML_LOGIN.innerHTML = ''
 
