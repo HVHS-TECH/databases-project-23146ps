@@ -229,6 +229,7 @@ async function ifLoggedInHome(snapshot) {
 }
 
 function showUserHome(snapshot) {
+    let GLOBAL_user = JSON.parse(window.sessionStorage.getItem('GLOBAL_user'));
     fbGameName = snapshot.val();
     HTML_SHOW_USER.innerHTML = '<h2>logged in as: ' + fbGameName + '</h2> <img src="' + GLOBAL_user.photoURL + '" alt="profilepicture">'
 }
@@ -246,56 +247,68 @@ function showLoggedOutHome() {
 
 //game 1 score
 async function readGame1Score() {
-    console.log("reading data");
+    //gets a snapshot of database names/scores
     await firebase.database().ref('/game1').orderByValue().once('value', displayGame1Scores, fb_error);
-    console.log('readData() complete');
 }
-
 function displayGame1Scores(snapshot) {
-    console.log("fb_readUserScores");
-    snapshot.forEach(showGame1Score)
-    /*
-    let userData = snapshot.val();
-    let messages = Object.keys(userData)
-    for(i=0; i < messages.length; i++) {
-      let key =  messages[i];
-      console.log(i+ " is for " +key+ "." +userData[key])
-    
-    }
-    */
-    console.log("fb_readUserData complete")
+    //turns snapshot into objects
+    game1ScoreArray = [];
+
+    snapshot.forEach(showGame1Score);
+
+    game1ScoreArray.reverse();
+    console.log(game1ScoreArray);
+
+    for (let i=0; i<game1ScoreArray.length; i++){
+        HTML_GAME_1_OUTPUT.innerHTML += "<p>" + (i + 1) + ": "+ game1ScoreArray[i].name + " " + game1ScoreArray[i].score +"</p>"
+    };
 }
 
 function showGame1Score(child) {
+    //prints objects in html
+    let score1 = { 
+        name: child.key, 
+        score: child.val() 
+    };
+    game1ScoreArray.push(score1);
+
+    /*
     console.log(child.key + " got " + child.val() + " points");
     HTML_GAME_1_OUTPUT.innerHTML += "<p>" + child.key + " got " + child.val() + " points </p>"
+    */
 }
-
-
 
 //game 2 score
 async function readGame2Score() {
+    //gets a snapshot of database names/scores
     await firebase.database().ref('/game2').orderByValue().once('value', displayGame2Scores, fb_error);
 }
-
 function displayGame2Scores(snapshot) {
-    console.log("fb_readUserScores");
-    snapshot.forEach(showGame2Score)
-    /*
-    let userData = snapshot.val();
-    let messages = Object.keys(userData)
-    for(i=0; i < messages.length; i++) {
-      let key =  messages[i];
-      console.log(i+ " is for " +key+ "." +userData[key])
-    
-    }
-    */
-    console.log("fb_readUserData complete")
+    //turns snapshot into objects
+    game2ScoreArray = [];
+
+    snapshot.forEach(showGame2Score);
+
+    game2ScoreArray.reverse();
+    console.log(game2ScoreArray);
+
+    for (let i=0; i<game2ScoreArray.length; i++){
+        HTML_GAME_2_OUTPUT.innerHTML += "<p>" + (i + 1) + ": "+ game2ScoreArray[i].name + " " + game2ScoreArray[i].score +"</p>"
+    };
 }
 
 function showGame2Score(child) {
+    //prints objects in html
+    let score2 = { 
+        name: child.key, 
+        score: child.val() 
+    };
+    game2ScoreArray.push(score2);
+
+    /*
     console.log(child.key + " got " + child.val() + " points");
-    HTML_GAME_2_OUTPUT.innerHTML += "<p>" + child.key + " got " + child.val() + " points </p>"
+    HTML_GAME_1_OUTPUT.innerHTML += "<p>" + child.key + " got " + child.val() + " points </p>"
+    */
 }
 
 /**************************************************************/
