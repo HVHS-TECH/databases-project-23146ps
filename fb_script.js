@@ -260,7 +260,15 @@ function displayGame1Scores(snapshot) {
     console.log(game1ScoreArray);
 
     for (let i=0; i<game1ScoreArray.length; i++){
-        HTML_GAME_1_OUTPUT.innerHTML += "<p>" + (i + 1) + ": "+ game1ScoreArray[i].name + " " + game1ScoreArray[i].score +"</p>"
+        if (i==0) {
+            HTML_GAME_1_OUTPUT.innerHTML += "<div class='first'><p>" + (i + 1) + ": "+ game1ScoreArray[i].name + ": " + game1ScoreArray[i].score +"</p></div>" 
+        } else if (i==1) {
+            HTML_GAME_1_OUTPUT.innerHTML += "<div class='second'><p>" + (i + 1) + ": "+ game1ScoreArray[i].name + ": " + game1ScoreArray[i].score +"</p></div>"
+        } else if (i==2) {
+            HTML_GAME_1_OUTPUT.innerHTML += "<div class='third'><p>" + (i + 1) + ": "+ game1ScoreArray[i].name + ": " + game1ScoreArray[i].score +"</p></div>"
+        } else {
+            HTML_GAME_1_OUTPUT.innerHTML += "<div class='score'><p>" + (i + 1) + ": "+ game1ScoreArray[i].name + ": " + game1ScoreArray[i].score +"</p></div>"
+        }
     };
 }
 
@@ -293,7 +301,15 @@ function displayGame2Scores(snapshot) {
     console.log(game2ScoreArray);
 
     for (let i=0; i<game2ScoreArray.length; i++){
-        HTML_GAME_2_OUTPUT.innerHTML += "<p>" + (i + 1) + ": "+ game2ScoreArray[i].name + " " + game2ScoreArray[i].score +"</p>"
+        if (i==0) {
+            HTML_GAME_2_OUTPUT.innerHTML += "<div class='first'><p>" + (i + 1) + ": "+ game2ScoreArray[i].name + ": " + game2ScoreArray[i].score +"</p></div>" 
+        } else if (i==1) {
+            HTML_GAME_2_OUTPUT.innerHTML += "<div class='second'><p>" + (i + 1) + ": "+ game2ScoreArray[i].name + ": " + game2ScoreArray[i].score +"</p></div>"
+        } else if (i==2) {
+            HTML_GAME_2_OUTPUT.innerHTML += "<div class='third'><p>" + (i + 1) + ": "+ game2ScoreArray[i].name + ": " + game2ScoreArray[i].score +"</p></div>"
+        } else {
+            HTML_GAME_2_OUTPUT.innerHTML += "<div class='score'><p>" + (i + 1) + ": "+ game2ScoreArray[i].name + ": " + game2ScoreArray[i].score +"</p></div>"
+        }
     };
 }
 

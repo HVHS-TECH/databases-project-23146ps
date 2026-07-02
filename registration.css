@@ -1,6 +1,5 @@
 body {
   background-color: #E0F2E9;
-  color: #5B7B7A;
   font-family: Arial, sans-serif;
   padding: 2rem;
 }
@@ -64,4 +63,32 @@ button:hover {
 #statusMessage {
   margin-top: 1rem;
   font-style: italic;
+}
+
+.first {
+  color: rgb(255, 217, 0);
+  background-color: #5B7B7A;
+  border: 2px solid #5B7B7A;
+  border-radius: 6px;
+}
+
+.second {
+  color: rgb(196, 196, 196);
+  background-color: #5B7B7A;
+  border: 2px solid #5B7B7A;
+  border-radius: 6px;
+}
+
+.third {
+  color: #d89777;
+  background-color: #5B7B7A;
+  border: 2px solid #5B7B7A;
+  border-radius: 6px;
+}
+
+.score {
+  color: #E0F2E9;
+  background-color: #5B7B7A;
+  border: 2px solid #5B7B7A;
+  border-radius: 6px;
 }
