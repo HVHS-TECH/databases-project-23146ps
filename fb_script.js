@@ -1,3 +1,13 @@
+/*******************************************************************
+ *******************************************************************
+ **                                                               **
+ ** fb_script.js handles login and registration across all pages  **
+ ** 12 COMP 2026                                                  **
+ ** 23146ps                                                       **
+ **                                                               **
+ *******************************************************************
+ ******************************************************************/
+
 console.log("fb_script.js")
 
 /**************************************************************/
@@ -82,25 +92,12 @@ async function showLoggedIn() {
     let userName = GLOBAL_user.displayName
     HTML_LOGIN.innerHTML = "<h3> Logged in as " + userName + " </h3> <button onclick='fb_logout()'>logout</button>"
     console.log(GLOBAL_user)
-    /*
-    let userID = GLOBAL_user.uid;
-    let userImage = GLOBAL_user.photoURL;
-    console.log(userID);
-
-    firebase.database().ref("salsstrawberries/users/" + userID).set({
-
-        name: HTML_NAME,
-        favoriteFruit: HTML_FRUIT,
-        fruitQuantity: HTML_AMOUNT
-
-    });
-    */
 }
 
 async function readUID() {
     //reads if the user uid is in the database
     console.log("reading data");
-    await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', checkUID, fb_error);
+    await firebase.database().ref('/authUsers').orderByKey().equalTo(GLOBAL_user.uid).once('value', checkUID, fb_error);
     console.log('readUID() complete');
 }
 
@@ -161,6 +158,10 @@ async function writeForm() {
                 age: formAge
 
             });
+
+            await firebase.database().ref('authUsers/').update({
+                [userID]: userID
+            });
             window.location.replace("index.html");
         };
     };
@@ -189,7 +190,7 @@ async function readUIDHome() {
 
         HTML_HOME_LOGOUT.innerHTML = ''
     } else {
-        await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInHome, fb_error);
+        await firebase.database().ref('/authUsers').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInHome, fb_error);
         await firebase.database().ref('/userData/' + GLOBAL_user.uid + '/gameName').once('value', showUserHome, fb_error);
     }
 }
@@ -243,7 +244,6 @@ function showLoggedOutHome() {
     HTML_HOME_LOGOUT.innerHTML = ''
     console.log("logged out!")
 }
-
 
 //game 1 score
 async function readGame1Score() {
@@ -311,6 +311,9 @@ function showGame2Score(child) {
     */
 }
 
+
+
+
 /**************************************************************/
 // 
 // Game1
@@ -324,7 +327,7 @@ async function readUIDGame1() {
         window.location.replace("index.html");
     } else {
         console.log("reading data");
-        await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame1, fb_error);
+        await firebase.database().ref('/authUsers').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame1, fb_error);
         console.log('readUID() complete');
     }
 }
@@ -349,7 +352,7 @@ async function readUIDGame1Home() {
         HTML_LOGIN.innerHTML = `<button onclick="location.href='registration.html'">Login or sign up to play game</button>`
     } else {
         console.log("reading data");
-        await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame1Home, fb_error);
+        await firebase.database().ref('/authUsers').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame1Home, fb_error);
         console.log('readUID() complete');
     }
 }
@@ -399,7 +402,7 @@ async function readUIDGame2() {
         window.location.replace("index.html");
     } else {
         console.log("reading data");
-        await firebase.database().ref('/userData').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame2, fb_error);
+        await firebase.database().ref('/authUsers').orderByKey().equalTo(GLOBAL_user.uid).once('value', ifLoggedInGame2, fb_error);
         console.log('readUID() complete');
     }
 }
