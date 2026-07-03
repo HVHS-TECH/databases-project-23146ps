@@ -66,29 +66,29 @@ button:hover {
 }
 
 .first {
-  color: rgb(255, 217, 0);
-  background-color: #5B7B7A;
+  color: rgb(255, 179, 14);
+  background-color: #f3e6eb;
   border: 2px solid #5B7B7A;
   border-radius: 6px;
 }
 
 .second {
-  color: rgb(196, 196, 196);
-  background-color: #5B7B7A;
+  color: rgb(124, 124, 124);
+  background-color: #f3e6eb;
   border: 2px solid #5B7B7A;
   border-radius: 6px;
 }
 
 .third {
-  color: #d89777;
-  background-color: #5B7B7A;
+  color: #a37158;
+  background-color: #f3e6eb;
   border: 2px solid #5B7B7A;
   border-radius: 6px;
 }
 
 .score {
-  color: #E0F2E9;
-  background-color: #5B7B7A;
+  color: #393b3a;
+    background-color: #f3e6eb;
   border: 2px solid #5B7B7A;
   border-radius: 6px;
 }
